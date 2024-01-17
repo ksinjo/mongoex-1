@@ -35,7 +35,14 @@ app.get('/products/:id', async(req,res)=>{
     res.render('products/show',{product})
 })
 
-app.post('/product',async(req,res)=>{
+app.get('/products/:id/edit', async(req,res)=> {
+    const{ id } = req.params;
+    const product = await Product.findById(id);
+    res.render('products/edit',{product})
+})
+
+
+app.post('/products',async(req,res)=>{
     const newProduct = new Product(req.body);
     await newProduct.save();
     console.log(newProduct);
