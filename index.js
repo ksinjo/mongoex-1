@@ -5,6 +5,7 @@ const path = require('path');
 const mongoose = require('mongoose');
 const Product = require('./models/product');
 const methodoverride = require('method-override');
+const categories = ['computer','tv','smart'];
 
 mongoose.connect('mongodb://localhost:27017/device')
 .then(()=>{
@@ -27,7 +28,7 @@ app.get('/products',async (req,res)=>{
 })
 
 app.get('/products/new',(req,res)=>{
-    res.render('products/new')
+    res.render('products/new',{categories});
 })
 app.get('/products/:id', async(req,res)=>{
     const{ id } = req.params;
@@ -39,7 +40,7 @@ app.get('/products/:id', async(req,res)=>{
 app.get('/products/:id/edit', async(req,res)=> {
     const{ id } = req.params;
     const product = await Product.findById(id);
-    res.render('products/edit',{product})
+    res.render('products/edit',{product,categories})
 })
 
 
