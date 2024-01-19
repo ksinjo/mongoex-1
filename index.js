@@ -60,7 +60,12 @@ app.put('/products/:id', async (req,res)=>{
     res.redirect(`/products/${product.id}`);
 })
 
-
+app.delete('/prodcuts/:id', async(req,res)=>{
+    const { id } = req.params;
+    const deleteProduct = await Product.findByIdAndDelete(id);
+    console.log(deleteProduct);
+    res.redirect("/products");
+})
 
 app.listen(3333,()=>{
  console.log('start Express');
